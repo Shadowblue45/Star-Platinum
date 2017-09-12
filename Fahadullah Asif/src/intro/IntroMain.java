@@ -8,4 +8,3 @@ public class IntroMain {
 	}
 
 }
-//what went wrong
