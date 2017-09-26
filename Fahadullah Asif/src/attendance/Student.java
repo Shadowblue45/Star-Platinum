@@ -11,4 +11,6 @@ public class Student implements Attendee {
 	public void setPresent(boolean present) {
 		present = true;
 	}
+	
+	
 }
