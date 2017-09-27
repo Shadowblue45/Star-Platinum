@@ -2,12 +2,13 @@ package attendance;
 
 public class Student implements Attendee {
 	
-	private boolean present = false;
+	private boolean present;
 	String firstName;
 	String lastName;
 	public Student(String firstName, String lastName){
 		this.firstName = firstName;
 		this.lastName = lastName;
+		present = false;
 	}
 	
 	public boolean isPresent() {
@@ -15,7 +16,7 @@ public class Student implements Attendee {
 	}
 	
 	public void setPresent(boolean present) {
-		present = true;
+		this.present = true;
 	}
 	
 	public String getFirstName() {
@@ -26,34 +27,38 @@ public class Student implements Attendee {
 		return lastName;
 	}
 
-	//returns true if 'first' and 'last' match this Attendee's firstName and lastName. This should NOT be case sensitive. 
 	public boolean mathces(String first, String last) {
-		if(matches(last) && firstName == first) {
-			return true;
-		}
-		return false;
+		return first.toLowerCase().equals(firstName.toLowerCase()) && last.toLowerCase().equals(lastName.toLowerCase());
 	}
-
 	
-	//returns true if 'last' matches this Attendee's lastName. This should NOT be case sensitive.
 	public boolean matches(String last) {
-		if(lastName == last) {
-			return true;
-		}
-		return false;
+		return last.toLowerCase().equals(lastName.toLowerCase());
 	}
 
-	//returns three words separated by 20 spaces: 
-	//at index 0, the last name
-	//at index 20, the first name
-	//at index 40, the word PRESENT or ABSENT
-	//ADDED CHALLENGE:
-	//if last name or first name is longer than 20 characters, 
-	//cut off the last three letters and replace with "..."
+
 	public String getReportString() {
-		 int index;
-		 
+		 String report = lastName;
+		 report = restrictStringToLength(report,20);
+		 report+=firstName;
+		 report = restrictStringToLength(report,40);
+		 if(present) {
+			 report+="PRESENT\n";
+		 }
+		 else {
+			 report+="ABSENT\n";
+		 }
+		 return report;
 	}
 	
-	
+	public String restrictStringToLength(String s1, int x) {
+		if(s1.length() > x) {
+			s1 = s1.substring(0,x-3) + "...";
+		}
+		else {
+			while (s1.length() < x) {
+				s1+=" ";
+			}
+		}
+		return s1;
+	}
 }
