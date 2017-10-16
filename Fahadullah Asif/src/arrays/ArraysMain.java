@@ -8,10 +8,29 @@ public class ArraysMain {
 	private int[] intRay;
 	public ArraysMain() {
 		intRay = new int[50];
-		populate(intRay);
-		checkOccurences(intRay,2,12);
+		//populate(intRay);
+		//checkOccurences(intRay,3,18);
+		populate1ToN(intRay);
+		//swap(intRay,0,1);
+		shuffle(intRay);
 		//Arrays is a Utility class included in java for formatting output;
 		System.out.println(Arrays.toString(intRay));
+	}
+	private void shuffle(int[] arr) {
+		for(int i = 0; i< arr.length;i++) {
+			swap(arr,(int)(Math.random() * arr.length),(int)(Math.random() * arr.length));
+		}
+	}
+	private void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+		
+	}
+	private void populate1ToN(int[] intRay) {
+		for(int i = 0; i< intRay.length;i++) {
+			intRay[i] = 1 + i;
+		}
 	}
 	private void checkOccurences(int[] arr, int start, int end) {
 		int[] counter = new int[end-start + 1];
@@ -24,7 +43,7 @@ public class ArraysMain {
 	}
 	private void populate(int[] intRay) {
 		for(int i = 0; i< intRay.length;i++) {
-			intRay[i] = diceRoll(2);
+			intRay[i] = diceRoll(3);
 		}
 	}
 	public static void main(String[] args) {
