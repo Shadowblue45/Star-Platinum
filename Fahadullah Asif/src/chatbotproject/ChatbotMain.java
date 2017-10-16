@@ -5,9 +5,12 @@ import java.util.Scanner;
 public class ChatbotMain {
 
 	public static Chatbot chatbot = new Chatbot();
+	
 	public static void main(String[] args) {
 		chatbot.startTalking();
 	}
+	
+	//paste from utilities
 	private static Scanner inputSource = new Scanner(System.in);
 
 	
@@ -16,44 +19,50 @@ public class ChatbotMain {
 	 * where keyword is isolated and has noNegations.it returns -1 if the
 	 * keyword is not found.
 	 */
-	public static int findKeyword(String searchString, String keyword) {
+	public static int findKeyword(String searchString, String keywords, int startPsn) {
 		//makes lowercase
 		searchString = searchString.toLowerCase();
-		keyword = keyword.toLowerCase();
+		keywords = keywords.toLowerCase();
 		//find the first position after the startPsn
-		int psn = searchString.indexOf(keyword, startPsn);
-		
+		int psn = searchString.indexOf(keywords, startPsn);
 		//keep searching until keyword is found (noNegations and isolated)
 		while(psn >= 0) {
 			
-			if(keywordIsIsolated(psn, keyword, searchString) && noNegations(searchString, psn)) {
+			if(keywordIsIsolated(psn, keywords, searchString) && noNegations(searchString, psn)) {
 				return psn;
 			}
 			else {
 				//look for next occurrence
-				psn = searchString.indexOf(keyword, psn+1);
+				psn = searchString.indexOf(keywords, psn+1);
 			}
 		}
 		return -1;
 	}
 	
 	public static boolean keywordIsIsolated(int psn, String keyword, String s){
-		if(s.substring(psn,psn + keyword.length()).equals(keyword)) {
+		if(psn + keyword.length() == s.length())
 			return true;
-		}
-		else if(s.substring(psn,psn + keyword.length() + 1).equals(keyword + " ")) {
+		
+		else if(s.substring(psn + keyword.length()+1).compareTo("a") < 0)
 			return true;
-		}
-		else if(s.substring(psn + keyword.length(),psn + keyword.length() + 1).compareTo("a") < 0) {
+		
+		else if(s.substring(psn + keyword.length() + 1).equals(keyword + " "))
 			return true;
-		}
+		
 		return false;
 	}
 
-	public static boolean noNegations(String s, int psn){
-		return true;
-	}
-
+	 public static boolean noNegations(String s, int psn){
+		  String not = "not";
+		  String no = "no";
+		  if(psn == 0) {
+			  return true;
+		  }
+		  if(psn > 3 && not.equals(s.substring(psn-4,psn-1)) || no.equals(s.substring(psn-3, psn-1))) {
+			  return false;
+		  }
+		  return true;
+	  }
 
 	public static String getInput(){
 		return inputSource.nextLine();
@@ -65,7 +74,7 @@ public class ChatbotMain {
 
 	public static void multiLinePrint(String s){
 		String printString = "";
-		int cutoff = 25;
+		int cutoff = 55;
 		//this while loop last as long as there are words left in the original String
 		while(s.length() > 0){
 
@@ -75,9 +84,8 @@ public class ChatbotMain {
 			//while the current cut is still less than the line length 
 			//AND there are still words left to add
 			while(currentCut.length()+nextWord.length() < cutoff && s.length() > 0){
-
+    
 				//add the next word
-				return true;
 				currentCut += nextWord;
 
 				//remove the word that was added from the original String
