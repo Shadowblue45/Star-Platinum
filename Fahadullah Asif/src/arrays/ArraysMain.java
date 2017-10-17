@@ -11,28 +11,93 @@ public class ArraysMain {
 		//populate(intRay);
 		//checkOccurences(intRay,3,18);
 		populate1ToN(intRay);
+		//frontToBack(intRay);
+		//cycleThrough(intRay, 5);
 		//swap(intRay,0,1);
 		shuffle(intRay);
+		//reverseOrder(intRay);
+		//longestConsecutiveSequence(intRay);
+		//countLessThan(intRay, 20);
 		//Arrays is a Utility class included in java for formatting output;
 		System.out.println(Arrays.toString(intRay));
+		System.out.println("The longest consecutive sequence is " + longestConsecutiveSequence(intRay));
 	}
-	private void shuffle(int[] arr) {
+	public void shuffle(int[] arr) {
 		for(int i = 0; i< arr.length;i++) {
 			swap(arr,(int)(Math.random() * arr.length),(int)(Math.random() * arr.length));
 		}
 	}
-	private void swap(int[] arr, int i, int j) {
+	public void swap(int[] arr, int i, int j) {
 		int temp = arr[i];
 		arr[i] = arr[j];
 		arr[j] = temp;
 		
 	}
-	private void populate1ToN(int[] intRay) {
+	public void populate1ToN(int[] intRay) {
 		for(int i = 0; i< intRay.length;i++) {
 			intRay[i] = 1 + i;
 		}
 	}
-	private void checkOccurences(int[] arr, int start, int end) {
+	public int[] reverseOrder(int[] arr) {
+		int[] newArr = new int[arr.length];
+		for(int i = 0; i< newArr.length;i++) {
+			newArr[i] = arr[arr.length - i - 1];
+		}
+		return newArr;
+	}
+	public void frontToBack(int[] arr) {
+		int temp = arr[0];
+		for(int i = 0; i< arr.length - 1;i++) {
+			arr[i] = arr[i+1];
+		}
+		arr[arr.length - 1] = temp;
+	}
+	public void cycleThrough(int[] arr, int n) {
+		for(int i = 0; i< n;i++) {
+			frontToBack(arr);
+		}
+	}
+	public int countLessThan(int[] arr, int n) {
+		int result = 0;
+		for(int i = 0; i< intRay.length;i++) {
+			if(intRay[i] < n) {
+				result++;
+			}
+		}
+		return result;
+	}
+	public int longestConsecutiveSequence(int[] arr) {
+		int result = 1;
+		int scl = 1;
+		for(int i = 0; i< arr.length - 1;i++) {
+			if(nextElementIsInSequence(arr,i)) {;
+			scl++;
+			}
+			else if(scl > result){
+				result = scl;
+				scl = 1; 
+			}
+		}
+		return result;
+	}
+	public boolean nextElementIsInSequence(int[] arr, int pos) {
+		return (arr[pos + 1]-1 == arr[pos]);
+	}
+	public int LongestConsecutiveSecuencePos(int[] arr, int pos) {
+		int result = 1;
+		int scl = 1;
+		for(int i = pos; i< arr.length - 1;i++) {
+			if(nextElementIsInSequence(arr,i)) {
+			scl++;
+			}
+			else if(scl > result){
+				result = scl;
+				scl = 1; 
+			}
+		}
+		return result;
+	}
+	public void checkOccurences(int[] arr, int start, int end) {
 		int[] counter = new int[end-start + 1];
 		for(int value: arr) {
 			counter[value - start]++;
@@ -41,7 +106,7 @@ public class ArraysMain {
 			System.out.println("A " + (start + i) + " was rolled " + counter[i] + " times.");
 		}
 	}
-	private void populate(int[] intRay) {
+	public void populate(int[] intRay) {
 		for(int i = 0; i< intRay.length;i++) {
 			intRay[i] = diceRoll(3);
 		}
