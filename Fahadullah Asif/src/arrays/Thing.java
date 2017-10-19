@@ -8,6 +8,6 @@ public class Thing {
 	}
 	
 	public String toString() {
-		return "I am just a " + description + ". Just an inanimate object.";
+		return description;
 	}
 }
