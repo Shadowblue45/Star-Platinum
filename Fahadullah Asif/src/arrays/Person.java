@@ -15,6 +15,7 @@ public class Person {
 	private Borough home;
 	private Hobby hobby;
 	private Person[] friends;
+	private String nickname;
 	
 	public Person(String firstName, String lastName, Borough home){
 		this.firstName =  firstName;
@@ -22,6 +23,7 @@ public class Person {
 		this.home = home;
 		this.hobby = Hobby.randomHobby();
 		this.friends = new Person[3];
+		this.nickname = createNickname(firstName);
 	}
 	
 	public void mingle(Person[] people) {
@@ -54,7 +56,7 @@ public class Person {
 		if(q == null) {
 			return p;
 		}
-		if(p.getClass() == q.getClass() && p.getClass() == this.getClass()) {
+		if(q.getClass() == this.getClass() && p.getClass() == this.getClass()) {
 			if(p.hobby == this.hobby) {
 				return p;
 			}
@@ -71,7 +73,46 @@ public class Person {
 		return q;
 	}
 	
+	
+	public String getFirstName(){
+		return firstName;
+	}
+	
+	public void setFirstName(String firstName){
+		this.firstName = firstName;
+		nickname = createNickname(firstName);
+	}
+	
+	// JAVA IS PASS-BY-VALUE
+	//meaning the parameters of a method are just values, not references
+	//so if you change those values, the original objects is not affected.
+	//in this case, 'name' will not be changed. In fact, Nothing can Change
+	//this.firstname via name
+	public static String createNickname(String name) {
+		int vowelPos = findSecond(name);
+		String nickname = name.substring(0,vowelPos);
+		return nickname;
+	}
+	private static int findSecond(String name) {
+		boolean foundVowel = false;
+		name = name.toLowerCase();
+		int index = name.length();
+		for(int i = 0; i< name.length();i++) {
+			if(i+1< name.length()) {
+				if(name.substring(i,i+1).equals("a") || name.substring(i,i+1).equals("e") || name.substring(i,i+1).equals("i") || name.substring(i,i+1).equals("o") || name.substring(i,i+1).equals("u")) {
+					if(!foundVowel) {
+						foundVowel = true;
+					}
+					else {
+						return i;
+					}
+				}
+			}
+		}
+		return index;
+	}
+
 	public String toString() {
-		return "My name is " + firstName + " " + lastName + " and i live in " + home + ". I like " + hobby + ". ";
+		return "My name is " + firstName + " " + lastName + ". Call me " + nickname + ". ";
 	}
 }
