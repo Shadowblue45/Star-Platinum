@@ -40,7 +40,7 @@ public class CaveRoom {
 			}
 		}
 		if(!doorFound) {
-			direction += "There is no way out. You are trapped here.";
+			directions += "There is no way out. You are trapped here.";
 		}
 	}
 	
