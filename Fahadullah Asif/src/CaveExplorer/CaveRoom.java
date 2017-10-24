@@ -52,6 +52,56 @@ public class CaveRoom {
 		String[] arr = {"the North","the East","the South","the West"};
 		return arr[dir];
 	}
+	
+	public void enter() {
+		contents = "x";
+	}
+	
+	public void setConnetion(int direction, CaveRoom anotherRoom, Door door) {
+		addRoom(direction,anotherRoom,door);
+		anotherRoom.addRoom(oppositeDirection(direction),this,door);
+	}
+	
+	public static int oppositeDirection(int direction) {
+		return(direction + 2)%4;
+	}
+	
+	public void addRoom(int direction, CaveRoom cave, Door door) {
+		borderingRooms[direction] = cave;
+		doors[direction] = door;
+		setDirections();
+	}
+	
+	public void interpretInput(String input) {
+		while(isValid(input)) {
+			System.out.println("You can only enter 'w','a','s' or'd'.");
+			input = CaveExplorer.in.nextLine();
+		}
+		String dirs = "wdsa";
+		goToRoom(dirs.indexOf(input));
+	}
+	
+	public boolean isValid(String input) {
+		String validEntries = "wasd";
+		return validEntries.indexOf(input) > -1 && input.length() == 1;
+	}
+	public void goToRoom(int direction) {
+		if(borderingRooms[direction] != null && doors[direction] != null) {
+			CaveExplorer.currentRoom.leave();
+			CaveExplorer.currentRoom = borderingRooms[direction];
+			CaveExplorer.currentRoom.enter();
+			CaveExplorer.inventory.updateMap();
+		}
+	}
+	
+	//this will be there your group sets up all the caves
+	//and all the connections;
+	public static void setUpCaves() {
+		
+	}
+	public void leave() {
+		contents = defaultContents;
+	}
 
 	public String getDescriptions() {
 		return descriptions;
