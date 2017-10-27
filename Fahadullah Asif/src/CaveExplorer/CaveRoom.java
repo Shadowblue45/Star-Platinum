@@ -36,7 +36,7 @@ public class CaveRoom {
 		for(int i = 0; i< doors.length;i++) {
 			if(doors[i] != null) {
 				doorFound = true;
-				directions += "\n There is a" + doors[i].getDescription() + " to " + toDirection(i) + ". " + doors[i].getDetails();
+				directions += "\n" + "There is a " + doors[i].getDescription() + " to " + toDirection(i) + ". " + doors[i].getDetails();
 			}
 		}
 		if(!doorFound) {
@@ -57,7 +57,7 @@ public class CaveRoom {
 		contents = "x";
 	}
 	
-	public void setConnetion(int direction, CaveRoom anotherRoom, Door door) {
+	public void setConnection(int direction, CaveRoom anotherRoom, Door door) {
 		addRoom(direction,anotherRoom,door);
 		anotherRoom.addRoom(oppositeDirection(direction),this,door);
 	}
@@ -73,7 +73,7 @@ public class CaveRoom {
 	}
 	
 	public void interpretInput(String input) {
-		while(isValid(input)) {
+		while(!isValid(input)) {
 			System.out.println("You can only enter 'w','a','s' or'd'.");
 			input = CaveExplorer.in.nextLine();
 		}
@@ -97,14 +97,26 @@ public class CaveRoom {
 	//this will be there your group sets up all the caves
 	//and all the connections;
 	public static void setUpCaves() {
+		CaveExplorer.caves = new CaveRoom[5][5];
 		
+		for(int row = 0; row< CaveExplorer.caves.length;row++) {
+			for(int col = 0; col< CaveExplorer.caves[row].length;col++) {
+				CaveExplorer.caves[row][col] = new CaveRoom("This cave has coords (" + row + "," + col + ")");
+			}
+		}
+		CaveExplorer.currentRoom =CaveExplorer.caves[0][1];
+		CaveExplorer.currentRoom.enter();
+		CaveRoom[][] c = CaveExplorer.caves;
+		c[0][1].setConnection(SOUTH, c[1][1], new Door());
+
 	}
+	
 	public void leave() {
 		contents = defaultContents;
 	}
 
-	public String getDescriptions() {
-		return descriptions;
+	public String getDescription() {
+		return descriptions + "\n" + directions;
 	}
 
 
