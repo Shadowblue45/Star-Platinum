@@ -18,7 +18,7 @@ public class CaveRoom {
 
 	public CaveRoom(String description) {
 		this.descriptions = description;
-		setDefaultContents("");
+		setDefaultContents(" ");
 		contents = defaultContents;
 		
 		borderingRooms = new CaveRoom[4];
@@ -141,6 +141,9 @@ public class CaveRoom {
 
 	public void setDefaultContents(String defaultContents) {
 		this.defaultContents = defaultContents;
+	}
+	public Door getDoor(int direction) {
+		return doors[direction];
 	}
 
 }

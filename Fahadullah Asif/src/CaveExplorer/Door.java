@@ -3,13 +3,13 @@ package CaveExplorer;
 public class Door {
 
 	private boolean locked;
-	private boolean opened;
+	private boolean open;
 	private String description;
 	private String details;
 	
 	public Door() {
 		locked = false;
-		opened = true;
+		open = true;
 		description = "passage";
 		details = "";
 	}
@@ -22,12 +22,12 @@ public class Door {
 		this.locked = locked;
 	}
 
-	public boolean isOpened() {
-		return opened;
+	public boolean isOpen() {
+		return open;
 	}
 
-	public void setOpened(boolean opened) {
-		this.opened = opened;
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	public String getDescription() {
