@@ -74,26 +74,42 @@ public class CaveRoom {
 	
 	public void interpretInput(String input) {
 		while(!isValid(input)) {
-			System.out.println("You can only enter 'w','a','s' or'd'.");
+			printAllowedEntry();
 			input = CaveExplorer.in.nextLine();
 		}
-		String dirs = "wdsa";
-		goToRoom(dirs.indexOf(input));
+		String dirs = validKeys();
+		respondToKey(dirs.indexOf(input));
+	}
+	
+	public String validKeys() {
+		return "wdsa";
+	}
+	
+	public void printAllowedEntry() {
+		System.out.println("You can only enter 'w','a','s' or'd'.");
 	}
 	
 	public boolean isValid(String input) {
-		String validEntries = "wasd";
+		String validEntries = validKeys();
 		return validEntries.indexOf(input) > -1 && input.length() == 1;
 	}
-	public void goToRoom(int direction) {
-		if(borderingRooms[direction] != null && doors[direction] != null) {
-			CaveExplorer.currentRoom.leave();
-			CaveExplorer.currentRoom = borderingRooms[direction];
-			CaveExplorer.currentRoom.enter();
-			CaveExplorer.inventory.updateMap();
+	public void respondToKey(int direction) {
+		if(direction < 4) {
+			if(borderingRooms[direction] != null && doors[direction] != null) {
+				CaveExplorer.currentRoom.leave();
+				CaveExplorer.currentRoom = borderingRooms[direction];
+				CaveExplorer.currentRoom.enter();
+				CaveExplorer.inventory.updateMap();
+			}
+		}
+		else {
+			performAction(direction);
 		}
 	}
 	
+	public void performAction(int direction) {
+		System.out.println("That Key Does Nothing.");
+	}
 	//this will be there your group sets up all the caves
 	//and all the connections;
 	public static void setUpCaves() {
