@@ -17,7 +17,7 @@ public class NPCRoom extends CaveRoom {
 		presentNPC = m;
 	}
 	
-	public void leaveNPC(NPC m) {
+	public void leaveNPC() {
 		presentNPC = null;
 	}
 	
@@ -61,7 +61,7 @@ public class NPCRoom extends CaveRoom {
 			return super.getDescription() + "\n" + presentNPC.getInactiveDescription();
 		}
 		else {
-			return super.getDescription();
+			return super.getDescription() + "\n" + presentNPC.getActiveDescription();
 		}
 	}
 
