@@ -113,13 +113,18 @@ public class CaveRoom {
 	//this will be there your group sets up all the caves
 	//and all the connections;
 	public static void setUpCaves() {
-		CaveExplorer.caves = new CaveRoom[5][5];
+		CaveExplorer.caves = new NPCRoom[5][5];
 		
 		for(int row = 0; row< CaveExplorer.caves.length;row++) {
 			for(int col = 0; col< CaveExplorer.caves[row].length;col++) {
-				CaveExplorer.caves[row][col] = new CaveRoom("This cave has coords (" + row + "," + col + ")");
+				CaveExplorer.caves[row][col] = new NPCRoom("This cave has coords (" + row + "," + col + ")");
 			}
 		}
+		//custom
+		CaveExplorer.npcs = new NPC[1];
+		CaveExplorer.npcs[0] = new NPC();
+		CaveExplorer.npcs[0].setPosition(1, 1);
+		
 		CaveExplorer.currentRoom =CaveExplorer.caves[0][1];
 		CaveExplorer.currentRoom.enter();
 		CaveRoom[][] c = CaveExplorer.caves;
@@ -159,7 +164,12 @@ public class CaveRoom {
 		this.defaultContents = defaultContents;
 	}
 	public Door getDoor(int direction) {
-		return doors[direction];
+		if(direction >= 0 && direction <= doors.length) {
+			return doors[direction];
+		}
+		else {
+			return null;
+		}
 	}
 
 }
