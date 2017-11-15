@@ -22,11 +22,11 @@ public class Animal {
 		age = 0;
 	}
 
-	private String getName() {
+	public String getName() {
 		return "animal";
 	}
 
-	private void chooseTraits() {
+	public void chooseTraits() {
 		trait1 = new Trait();
 		trait2 = new Trait();
 		while(trait2.equals(trait1)) {

@@ -27,7 +27,7 @@ public class Trait {
 		public String toString() {
 			return description;
 		}
-		private int getIndex() {
+		public int getIndex() {
 			return index;
 		}
 		public boolean equals(Object o) {
