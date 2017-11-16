@@ -18,7 +18,7 @@ public class Environment {
 
 	public void growPlants() {
 		plants += growthRate;
-		System.out.println("\nThere are " + plants + "plants.");
+		System.out.println("\nThere are " + plants + " plants.");
 	}
 	
 	public boolean eatPlants() {
