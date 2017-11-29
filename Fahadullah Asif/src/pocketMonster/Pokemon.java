@@ -35,6 +35,11 @@ public class Pokemon {
 		squirtle.lapse();
 		bulbasaur.lapse();
 		printScore(squirtle, bulbasaur);
+		squirtle.levelUp(new Effect() {
+			public void happen() {
+				
+			};
+		});
 	}
 	
 	public static void printScore(Pokemon a, Pokemon b) {
